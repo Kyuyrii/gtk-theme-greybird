@@ -1,0 +1,43 @@
+name: gtk-theme-greybird
+build-base: core24
+base: bare
+version: '3.23.3'
+platforms:
+  all:
+    build-on: [amd64]
+    build-for: [all]
+summary: Greybird GTK theme
+description: |
+  A Snap that allows you to use Greybird GTK themes in Snap apps
+grade: stable
+confinement: strict
+
+slots:
+  gtk-2-themes:
+    interface: content
+    source:
+      read:
+        - $SNAP/share/gtk2/Greybird
+        - $SNAP/share/gtk2/Greybird-dark
+  gtk-3-themes:
+    interface: content
+    source:
+      read:
+        - $SNAP/share/themes/Greybird
+        - $SNAP/share/themes/Greybird-dark
+parts:
+  gtk-2-themes:
+    plugin: dump
+    source: http://archive.ubuntu.com/ubuntu/pool/universe/g/greybird-gtk-theme/greybird-gtk-theme_3.23.3-1ubuntu1_all.deb
+    organize:
+      usr/share/themes: share/gtk2
+    prime:
+      - share/gtk2/*/gtk-2.0
+  gtk-3-themes:
+    plugin: dump
+    source: http://archive.ubuntu.com/ubuntu/pool/universe/g/greybird-gtk-theme/greybird-gtk-theme_3.23.3-1ubuntu1_all.deb
+    organize:
+      usr/share/themes: share/themes
+    prime:
+      - share/themes/*/gtk-3.0
+      - share/themes/*/gtk-4.0
